@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UnifieldTech;
+namespace UnifieldTech.Models;
 
 public class Cliente
 {
@@ -8,19 +8,19 @@ public class Cliente
 
     [Required(ErrorMessage = "Esse campo é obrigatorio")] //transforma o campo em obrigatorio
     [StringLength(100)] //limita o caracter em 100
-    public string NomeCliente { get; set; }
-    
+    public string? NomeCliente { get; set; }
+
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
-    public string CPF { get; set; }
-    
+    public string? CPF { get; set; }
+
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
     public string? E_Mail { get; set; }
-    
+
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
     public DateTime DataNacs { get; set; }
-    
+
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
-    public string Password { get; set; }
+    public string? Password { get; set; }
 
     //Referencia para:
     public ICollection<Celular>? celular { get; set; }
