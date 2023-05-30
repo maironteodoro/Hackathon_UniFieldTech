@@ -1,4 +1,4 @@
-﻿namespace UnifieldTech;
+﻿namespace UnifieldTech.Models;
 
 public class ValidaCPF
 {

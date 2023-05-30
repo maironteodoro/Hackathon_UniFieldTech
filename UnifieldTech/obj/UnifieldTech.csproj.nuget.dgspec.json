@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Facul\\5 periodo\\Hackathom\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {}
+    "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {}
   },
   "projects": {
-    "C:\\Facul\\5 periodo\\Hackathom\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {
+    "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Facul\\5 periodo\\Hackathom\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
+        "projectUniqueName": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
         "projectName": "UnifieldTech",
-        "projectPath": "C:\\Facul\\5 periodo\\Hackathom\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
-        "packagesPath": "C:\\Users\\rapha\\.nuget\\packages\\",
-        "outputPath": "C:\\Facul\\5 periodo\\Hackathom\\Hackathon_UniFieldTech\\UnifieldTech\\obj\\",
+        "projectPath": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
+        "packagesPath": "C:\\Users\\davib\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\rapha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\davib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -82,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

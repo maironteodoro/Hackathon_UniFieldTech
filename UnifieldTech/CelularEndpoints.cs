@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
+using UnifieldTech.Models;
+
 namespace UnifieldTech;
 
 public static class CelularEndpoints
