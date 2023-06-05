@@ -41,6 +41,7 @@ public static class ClienteEndpoints
                   .SetProperty(m => m.E_Mail, cliente.E_Mail)
                   .SetProperty(m => m.DataNacs, cliente.DataNacs)
                   .SetProperty(m => m.Password, cliente.Password)
+                  .SetProperty(m => m.Codigo, cliente.Codigo)
                 );
 
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
@@ -50,6 +51,7 @@ public static class ClienteEndpoints
 
         group.MapPost("/", async (Cliente cliente, UnifieldTechContext db) =>
         {
+            cliente.Codigo = cliente.GerarStringAleatoria();
             db.Cliente.Add(cliente);
             await db.SaveChangesAsync();
             return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}",cliente);
