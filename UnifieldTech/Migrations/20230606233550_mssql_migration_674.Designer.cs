@@ -12,8 +12,8 @@ using UnifieldTech.Data;
 namespace UnifieldTech.Migrations
 {
     [DbContext(typeof(UnifieldTechContext))]
-    [Migration("20230605233312_mssql_migration_318")]
-    partial class mssql_migration_318
+    [Migration("20230606233550_mssql_migration_674")]
+    partial class mssql_migration_674
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UnifieldTech.Migrations
 {
     /// <inheritdoc />
-    public partial class mssql_migration_318 : Migration
+    public partial class mssql_migration_674 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

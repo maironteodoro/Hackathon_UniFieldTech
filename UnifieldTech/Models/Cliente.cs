@@ -21,8 +21,8 @@ public class Cliente
     public DateTime DataNacs { get; set; }
 
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
-    public string? Password { get; set; }
-    public string Codigo { get; set; }
+    public string Password { get; set; }
+    public string? Codigo { get; set; }
 
     //Referencia para:
     public ICollection<Celular>? celular { get; set; }

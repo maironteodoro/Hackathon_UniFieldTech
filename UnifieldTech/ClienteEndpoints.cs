@@ -18,7 +18,6 @@ public static class ClienteEndpoints
         })
         .WithName("GetAllClientes")
         .WithOpenApi();
-
         group.MapGet("/{id}", async Task<Results<Ok<Cliente>, NotFound>> (int clienteid, UnifieldTechContext db) =>
         {
             return await db.Cliente.AsNoTracking()
@@ -29,7 +28,7 @@ public static class ClienteEndpoints
         })
         .WithName("GetClienteById")
         .WithOpenApi();
-
+        
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int clienteid, Cliente cliente, UnifieldTechContext db) =>
         {
             var affected = await db.Cliente
@@ -54,6 +53,7 @@ public static class ClienteEndpoints
             cliente.Codigo = cliente.GerarStringAleatoria();
             db.Cliente.Add(cliente);
             await db.SaveChangesAsync();
+
             return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}",cliente);
         })
         .WithName("CreateCliente")
