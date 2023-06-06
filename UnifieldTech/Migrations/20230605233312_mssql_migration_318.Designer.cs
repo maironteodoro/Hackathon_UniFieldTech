@@ -12,8 +12,8 @@ using UnifieldTech.Data;
 namespace UnifieldTech.Migrations
 {
     [DbContext(typeof(UnifieldTechContext))]
-    [Migration("20230524231615_mssql.local_migration_625")]
-    partial class mssqllocal_migration_625
+    [Migration("20230605233312_mssql_migration_318")]
+    partial class mssql_migration_318
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace UnifieldTech.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("UnifieldTech.Celular", b =>
+            modelBuilder.Entity("UnifieldTech.Models.Celular", b =>
                 {
                     b.Property<int>("CelularID")
                         .ValueGeneratedOnAdd()
@@ -55,7 +55,7 @@ namespace UnifieldTech.Migrations
                         });
                 });
 
-            modelBuilder.Entity("UnifieldTech.Cliente", b =>
+            modelBuilder.Entity("UnifieldTech.Models.Cliente", b =>
                 {
                     b.Property<int>("ClienteID")
                         .ValueGeneratedOnAdd()
@@ -67,15 +67,21 @@ namespace UnifieldTech.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DataNacs")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("E_Mail")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomeCliente")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -90,6 +96,7 @@ namespace UnifieldTech.Migrations
                         {
                             ClienteID = 1,
                             CPF = "132.318.266.93",
+                            Codigo = "34as5",
                             DataNacs = new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             E_Mail = "robert@gmail.com",
                             NomeCliente = "Robert",
@@ -97,7 +104,7 @@ namespace UnifieldTech.Migrations
                         });
                 });
 
-            modelBuilder.Entity("UnifieldTech.Fazenda", b =>
+            modelBuilder.Entity("UnifieldTech.Models.Fazenda", b =>
                 {
                     b.Property<int>("FazendaID")
                         .ValueGeneratedOnAdd()
@@ -109,7 +116,6 @@ namespace UnifieldTech.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Cidade")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ClienteID")
@@ -120,7 +126,6 @@ namespace UnifieldTech.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Estado")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Hectar")
@@ -128,11 +133,9 @@ namespace UnifieldTech.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Latitude")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Longitude")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomeFazenda")
@@ -140,11 +143,9 @@ namespace UnifieldTech.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Num")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Rua")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TipoPlantio")
@@ -175,9 +176,9 @@ namespace UnifieldTech.Migrations
                         });
                 });
 
-            modelBuilder.Entity("UnifieldTech.Celular", b =>
+            modelBuilder.Entity("UnifieldTech.Models.Celular", b =>
                 {
-                    b.HasOne("UnifieldTech.Cliente", "cliente")
+                    b.HasOne("UnifieldTech.Models.Cliente", "cliente")
                         .WithMany("celular")
                         .HasForeignKey("ClienteID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -186,9 +187,9 @@ namespace UnifieldTech.Migrations
                     b.Navigation("cliente");
                 });
 
-            modelBuilder.Entity("UnifieldTech.Fazenda", b =>
+            modelBuilder.Entity("UnifieldTech.Models.Fazenda", b =>
                 {
-                    b.HasOne("UnifieldTech.Cliente", "cliente")
+                    b.HasOne("UnifieldTech.Models.Cliente", "cliente")
                         .WithMany("fazenda")
                         .HasForeignKey("ClienteID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -197,7 +198,7 @@ namespace UnifieldTech.Migrations
                     b.Navigation("cliente");
                 });
 
-            modelBuilder.Entity("UnifieldTech.Cliente", b =>
+            modelBuilder.Entity("UnifieldTech.Models.Cliente", b =>
                 {
                     b.Navigation("celular");
 

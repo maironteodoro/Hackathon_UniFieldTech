@@ -33,7 +33,8 @@ namespace UnifieldTech.Data
                 CPF = "132.318.266.93",
                 E_Mail = "robert@gmail.com",
                 DataNacs = Convert.ToDateTime("1997/11/11"),
-                Password = "123"
+                Password = "123",
+                Codigo = "34as5",
             }
         };
         private Celular[] GetSeedDataCelulares() => new Celular[] {

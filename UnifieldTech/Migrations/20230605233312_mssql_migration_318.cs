@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UnifieldTech.Migrations
 {
     /// <inheritdoc />
-    public partial class mssqllocal_migration_625 : Migration
+    public partial class mssql_migration_318 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,12 @@ namespace UnifieldTech.Migrations
                 {
                     ClienteID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeCliente = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NomeCliente = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    E_Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    E_Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataNacs = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,12 +58,12 @@ namespace UnifieldTech.Migrations
                     NomeFazenda = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Hectar = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cultivar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rua = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Num = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rua = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Num = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TipoPlantio = table.Column<bool>(type: "bit", nullable: false),
                     AreaMecanizada = table.Column<bool>(type: "bit", nullable: false),
                     ClienteID = table.Column<int>(type: "int", nullable: false)
@@ -80,8 +81,8 @@ namespace UnifieldTech.Migrations
 
             migrationBuilder.InsertData(
                 table: "Cliente",
-                columns: new[] { "ClienteID", "CPF", "DataNacs", "E_Mail", "NomeCliente", "Password" },
-                values: new object[] { 1, "132.318.266.93", new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "robert@gmail.com", "Robert", "123" });
+                columns: new[] { "ClienteID", "CPF", "Codigo", "DataNacs", "E_Mail", "NomeCliente", "Password" },
+                values: new object[] { 1, "132.318.266.93", "34as5", new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "robert@gmail.com", "Robert", "123" });
 
             migrationBuilder.InsertData(
                 table: "Celular",
