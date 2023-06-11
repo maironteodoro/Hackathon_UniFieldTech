@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
 using UnifieldTech.Models;
 
-namespace UnifieldTech;
+namespace UnifieldTech.Endpoints;
 
 public static class ClienteEndpoints
 {
-    public static void MapClienteEndpoints (this IEndpointRouteBuilder routes)
+    public static void MapClienteEndpoints(this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/api/Cliente").WithTags(nameof(Cliente));
 
@@ -28,7 +28,7 @@ public static class ClienteEndpoints
         })
         .WithName("GetClienteById")
         .WithOpenApi();
-        
+
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int clienteid, Cliente cliente, UnifieldTechContext db) =>
         {
             var affected = await db.Cliente
@@ -54,7 +54,7 @@ public static class ClienteEndpoints
             db.Cliente.Add(cliente);
             await db.SaveChangesAsync();
 
-            return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}",cliente);
+            return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}", cliente);
         })
         .WithName("CreateCliente")
         .WithOpenApi();

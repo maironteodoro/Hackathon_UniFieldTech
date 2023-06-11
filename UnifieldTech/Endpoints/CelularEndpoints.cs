@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
 using UnifieldTech.Models;
 
-namespace UnifieldTech;
+namespace UnifieldTech.Endpoints;
 
 public static class CelularEndpoints
 {
-    public static void MapCelularEndpoints (this IEndpointRouteBuilder routes)
+    public static void MapCelularEndpoints(this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/api/Celular").WithTags(nameof(Celular));
 
@@ -49,7 +49,7 @@ public static class CelularEndpoints
         {
             db.Celular.Add(celular);
             await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Celular/{celular.CelularID}",celular);
+            return TypedResults.Created($"/api/Celular/{celular.CelularID}", celular);
         })
         .WithName("CreateCelular")
         .WithOpenApi();

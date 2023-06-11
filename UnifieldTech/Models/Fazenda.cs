@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace UnifieldTech.Models;
 
@@ -35,5 +36,6 @@ public class Fazenda
     public bool AreaMecanizada { get; set; }
     //Referencia de:
     public int ClienteID { get; set; }
-    public Cliente? cliente { get; set; }
+	[JsonIgnore]
+	public Cliente? cliente { get; set; }
 }

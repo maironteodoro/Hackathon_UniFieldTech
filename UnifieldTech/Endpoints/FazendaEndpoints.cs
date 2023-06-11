@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
 using UnifieldTech.Models;
 
-namespace UnifieldTech;
+namespace UnifieldTech.Endpoints;
 
 public static class FazendaEndpoints
 {
-    public static void MapFazendaEndpoints (this IEndpointRouteBuilder routes)
+    public static void MapFazendaEndpoints(this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/api/Fazenda").WithTags(nameof(Fazenda));
 
@@ -59,7 +59,7 @@ public static class FazendaEndpoints
         {
             db.Fazenda.Add(fazenda);
             await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Fazenda/{fazenda.FazendaID}",fazenda);
+            return TypedResults.Created($"/api/Fazenda/{fazenda.FazendaID}", fazenda);
         })
         .WithName("CreateFazenda")
         .WithOpenApi();

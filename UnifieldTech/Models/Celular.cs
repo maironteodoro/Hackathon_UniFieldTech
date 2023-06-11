@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace UnifieldTech.Models;
 
@@ -12,5 +13,6 @@ public class Celular
 
     //referencia de:
     public int ClienteID { get; set; }
+    [JsonIgnore]
     public Cliente? cliente { get; set; }
 }

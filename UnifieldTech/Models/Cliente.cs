@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace UnifieldTech.Models;
 
@@ -21,12 +22,14 @@ public class Cliente
     public DateTime DataNacs { get; set; }
 
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
-    public string Password { get; set; }
+    public string? Password { get; set; }
     public string? Codigo { get; set; }
 
-    //Referencia para:
-    public ICollection<Celular>? celular { get; set; }
-    public ICollection<Fazenda>? fazenda { get; set; }
+	//Referencia para:
+	[JsonIgnore]
+	public ICollection<Celular>? celular { get; set; }
+	[JsonIgnore]
+	public ICollection<Fazenda>? fazenda { get; set; }
 
     public string GerarStringAleatoria()
     {

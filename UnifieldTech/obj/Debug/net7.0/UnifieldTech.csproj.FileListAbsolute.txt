@@ -1382,3 +1382,5 @@ D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\ref
 D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\UnifieldTech.pdb
 D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\UnifieldTech.genruntimeconfig.cache
 D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\ref\UnifieldTech.dll
+C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
