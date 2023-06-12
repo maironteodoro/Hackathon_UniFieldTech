@@ -65,7 +65,6 @@ namespace UnifieldTech.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Codigo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataNacs")
@@ -93,7 +92,6 @@ namespace UnifieldTech.Migrations
                         {
                             ClienteID = 1,
                             CPF = "132.318.266.93",
-                            Codigo = "34as5",
                             DataNacs = new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             E_Mail = "robert@gmail.com",
                             NomeCliente = "Robert",

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UnifieldTech.Migrations
 {
     /// <inheritdoc />
-    public partial class mssql_migration_674 : Migration
+    public partial class mssql_migration_461 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,7 @@ namespace UnifieldTech.Migrations
                     E_Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataNacs = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,7 +82,7 @@ namespace UnifieldTech.Migrations
             migrationBuilder.InsertData(
                 table: "Cliente",
                 columns: new[] { "ClienteID", "CPF", "Codigo", "DataNacs", "E_Mail", "NomeCliente", "Password" },
-                values: new object[] { 1, "132.318.266.93", "34as5", new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "robert@gmail.com", "Robert", "123" });
+                values: new object[] { 1, "132.318.266.93", null, new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "robert@gmail.com", "Robert", "123" });
 
             migrationBuilder.InsertData(
                 table: "Celular",

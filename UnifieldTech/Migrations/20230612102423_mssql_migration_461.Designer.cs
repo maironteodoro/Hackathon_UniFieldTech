@@ -12,8 +12,8 @@ using UnifieldTech.Data;
 namespace UnifieldTech.Migrations
 {
     [DbContext(typeof(UnifieldTechContext))]
-    [Migration("20230606233550_mssql_migration_674")]
-    partial class mssql_migration_674
+    [Migration("20230612102423_mssql_migration_461")]
+    partial class mssql_migration_461
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,7 +68,6 @@ namespace UnifieldTech.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Codigo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataNacs")
@@ -96,7 +95,6 @@ namespace UnifieldTech.Migrations
                         {
                             ClienteID = 1,
                             CPF = "132.318.266.93",
-                            Codigo = "34as5",
                             DataNacs = new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             E_Mail = "robert@gmail.com",
                             NomeCliente = "Robert",
