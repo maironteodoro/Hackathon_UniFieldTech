@@ -1384,3 +1384,8 @@ D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\Uni
 D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\ref\UnifieldTech.dll
 C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\System.Net.Http.Formatting.dll
 C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Twilio.dll
+C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Twilio.AspNet.Common.dll
+C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Twilio.AspNet.Core.dll
+C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\System.Web.Http.dll

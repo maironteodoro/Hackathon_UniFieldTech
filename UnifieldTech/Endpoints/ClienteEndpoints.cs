@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
 using UnifieldTech.Models;
+using Twilio.Types;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace UnifieldTech.Endpoints;
 
@@ -48,13 +51,36 @@ public static class ClienteEndpoints
         .WithName("UpdateCliente")
         .WithOpenApi();
 
+        //group.MapPost("/", async (Cliente cliente, UnifieldTechContext db) =>
+        //{
+        //    cliente.Codigo = cliente.GerarStringAleatoria();
+        //    db.Cliente.Add(cliente);
+        //    await db.SaveChangesAsync();
+
+        //    return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}", cliente);
+        //})
+        //.WithName("CreateCliente")
+        //.WithOpenApi();
+
         group.MapPost("/", async (Cliente cliente, UnifieldTechContext db) =>
         {
+            // Lógica para enviar SMS utilizando a biblioteca Twilio
+            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "15b5ff25237e8b7b2a8e1c4f205cacdb");
+
             cliente.Codigo = cliente.GerarStringAleatoria();
             db.Cliente.Add(cliente);
             await db.SaveChangesAsync();
 
-            return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}", cliente);
+            var messageOptions = new CreateMessageOptions(
+                new PhoneNumber("whatsapp:+553591529241"))
+            {
+                From = new PhoneNumber("whatsapp:+14155238886"),
+                Body = cliente.Codigo
+            };
+
+            var message = MessageResource.Create(messageOptions);
+
+            return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}", cliente + message.Sid);
         })
         .WithName("CreateCliente")
         .WithOpenApi();
