@@ -1389,3 +1389,8 @@ C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bi
 C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Twilio.AspNet.Common.dll
 C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Twilio.AspNet.Core.dll
 C:\Users\davib\OneDrive\Área de Trabalho\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\System.Web.Http.dll
+D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\System.Web.Http.dll
+D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Binder.dll
+D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Twilio.dll
+D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Twilio.AspNet.Common.dll
+D:\5° periodo\Back end\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\Twilio.AspNet.Core.dll

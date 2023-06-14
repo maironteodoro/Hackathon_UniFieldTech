@@ -6,7 +6,9 @@ using UnifieldTech.Models;
 using Twilio.Types;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
-
+using System.Net.Mail;
+using System.Net;
+using System.Text.Json;
 namespace UnifieldTech.Endpoints;
 
 public static class ClienteEndpoints
@@ -51,36 +53,64 @@ public static class ClienteEndpoints
         .WithName("UpdateCliente")
         .WithOpenApi();
 
-        //group.MapPost("/", async (Cliente cliente, UnifieldTechContext db) =>
-        //{
-        //    cliente.Codigo = cliente.GerarStringAleatoria();
-        //    db.Cliente.Add(cliente);
-        //    await db.SaveChangesAsync();
-
-        //    return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}", cliente);
-        //})
-        //.WithName("CreateCliente")
-        //.WithOpenApi();
-
-        group.MapPost("/", async (Cliente cliente, UnifieldTechContext db) =>
+        
+        group.MapPost("/", async (HttpRequest request, HttpResponse response, Cliente cliente, UnifieldTechContext db) =>
         {
-            // Lógica para enviar SMS utilizando a biblioteca Twilio
-            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "15b5ff25237e8b7b2a8e1c4f205cacdb");
-
+            // Validar o CPF antes de adicionar o cliente
+            if (!ValidaCPF.validaCPF(cliente.CPF))
+            {
+                // O CPF não é válido, você pode retornar um erro ou uma resposta indicando o problema
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                await response.WriteAsync("CPF inválido");
+                return;
+            }
+            
             cliente.Codigo = cliente.GerarStringAleatoria();
             db.Cliente.Add(cliente);
             await db.SaveChangesAsync();
+            response.StatusCode = (int)HttpStatusCode.Created;
+            await response.WriteAsync(JsonSerializer.Serialize(cliente));
+           
+            //return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}", cliente);
+            // Lógica para enviar o email
+            //try
+            //{
+            //    // Configurações do servidor SMTP
+            //    string smtpHost = "smtp.gmail.com";
+            //    int smtpPort = 587;
+            //    string smtpUsername = "email@gmail.com";
+            //    string smtpPassword = "senha";
 
-            var messageOptions = new CreateMessageOptions(
-                new PhoneNumber("whatsapp:+553591529241"))
-            {
-                From = new PhoneNumber("whatsapp:+14155238886"),
-                Body = cliente.Codigo
-            };
+            //    // Configurações do email
+            //    string fromEmail = "email@gmail.com";
+            //    string toEmail = cliente.E_Mail;
+            //    string subject = "Código de Verificação";
+            //    string body = "Seu código de verificação é: " + cliente.Codigo;
 
-            var message = MessageResource.Create(messageOptions);
+            //    // Cria uma instância do cliente SMTP
+            //    using (SmtpClient smtpClient = new SmtpClient(smtpHost, smtpPort))
+            //    {
+            //        smtpClient.EnableSsl = true;
+            //        smtpClient.UseDefaultCredentials = false;
+            //        smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
 
-            return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}", cliente + message.Sid);
+            //        // Cria a mensagem de email
+            //        MailMessage emailMessage = new MailMessage(fromEmail, toEmail, subject, body);
+
+            //        // Envia o email
+            //        smtpClient.Send(emailMessage);
+
+            //        Console.WriteLine("Email enviado com sucesso.");
+            //    }
+
+            //    response.StatusCode = (int)HttpStatusCode.Created;
+            //    await response.WriteAsync(JsonSerializer.Serialize(cliente));
+            //}
+            //catch (Exception ex)
+            //{
+            //    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            //    await response.WriteAsync("Ocorreu um erro ao enviar o email: " + ex.Message);
+            //}
         })
         .WithName("CreateCliente")
         .WithOpenApi();

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {}
+    "D:\\5° periodo\\Back end\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {}
   },
   "projects": {
-    "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {
+    "D:\\5° periodo\\Back end\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
+        "projectUniqueName": "D:\\5° periodo\\Back end\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
         "projectName": "UnifieldTech",
-        "projectPath": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
-        "packagesPath": "C:\\Users\\davib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\obj\\",
+        "projectPath": "D:\\5° periodo\\Back end\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
+        "packagesPath": "C:\\Users\\mairo\\.nuget\\packages\\",
+        "outputPath": "D:\\5° periodo\\Back end\\Hackathon_UniFieldTech\\UnifieldTech\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\davib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mairo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

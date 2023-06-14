@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
 using UnifieldTech.Models;
+using Twilio;
+using Twilio.Types;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace UnifieldTech.Endpoints;
 
@@ -47,9 +50,22 @@ public static class CelularEndpoints
 
         group.MapPost("/", async (Celular celular, UnifieldTechContext db) =>
         {
+
+            // Lógica para enviar SMS utilizando a biblioteca Twilio
+            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "6788b7c2d6bdd9b8c4c77fe34f48df9f");
+
             db.Celular.Add(celular);
             await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Celular/{celular.CelularID}", celular);
+
+            var cliente = await db.Cliente.FirstOrDefaultAsync(t => t.ClienteID == celular.ClienteID);
+            var messageOptions = new CreateMessageOptions(
+                new PhoneNumber($"whatsapp:+55{celular.CelularN}"))
+            {
+                From = new PhoneNumber("whatsapp:+14155238886"),
+                Body = "Esse é seu código de validação: "+cliente.Codigo
+            };
+            var message = MessageResource.Create(messageOptions);
+            return TypedResults.Created($"/api/Celular/{celular.CelularID}", celular+ message.Sid);
         })
         .WithName("CreateCelular")
         .WithOpenApi();
