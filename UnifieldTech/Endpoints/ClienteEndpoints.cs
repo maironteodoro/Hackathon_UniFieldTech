@@ -39,13 +39,10 @@ public static class ClienteEndpoints
             var affected = await db.Cliente
                 .Where(model => model.ClienteID == clienteid)
                 .ExecuteUpdateAsync(setters => setters
-                  .SetProperty(m => m.ClienteID, cliente.ClienteID)
                   .SetProperty(m => m.NomeCliente, cliente.NomeCliente)
-                  .SetProperty(m => m.CPF, cliente.CPF)
                   .SetProperty(m => m.E_Mail, cliente.E_Mail)
                   .SetProperty(m => m.DataNacs, cliente.DataNacs)
                   .SetProperty(m => m.Password, cliente.Password)
-                  .SetProperty(m => m.Codigo, cliente.Codigo)
                 );
 
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
@@ -59,12 +56,20 @@ public static class ClienteEndpoints
             // Validar o CPF antes de adicionar o cliente
             if (!ValidaCPF.validaCPF(cliente.CPF))
             {
-                // O CPF não é válido, você pode retornar um erro ou uma resposta indicando o problema
+                // Verificar se o CPF não é válido
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 await response.WriteAsync("CPF inválido");
                 return;
             }
-            
+            else if (db.Cliente.Any(c => c.CPF == cliente.CPF))
+            {
+                // Verificar se o CPF já está cadastrado no banco de dados
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                await response.WriteAsync("CPF já cadastrado");
+                return;
+            }
+
+
             cliente.Codigo = cliente.GerarStringAleatoria();
             db.Cliente.Add(cliente);
             await db.SaveChangesAsync();
