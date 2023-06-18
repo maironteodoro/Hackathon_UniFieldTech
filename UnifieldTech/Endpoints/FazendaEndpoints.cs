@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
 using UnifieldTech.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UnifieldTech.Endpoints;
 
@@ -16,6 +18,7 @@ public static class FazendaEndpoints
         {
             return await db.Fazenda.ToListAsync();
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("GetAllFazendas")
         .WithOpenApi();
 
@@ -27,6 +30,7 @@ public static class FazendaEndpoints
                     ? TypedResults.Ok(model)
                     : TypedResults.NotFound();
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("GetFazendaById")
         .WithOpenApi();
 
@@ -52,6 +56,7 @@ public static class FazendaEndpoints
 
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("UpdateFazenda")
         .WithOpenApi();
 
@@ -61,6 +66,7 @@ public static class FazendaEndpoints
             await db.SaveChangesAsync();
             return TypedResults.Created($"/api/Fazenda/{fazenda.FazendaID}", fazenda);
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("CreateFazenda")
         .WithOpenApi();
 
@@ -72,6 +78,7 @@ public static class FazendaEndpoints
 
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("DeleteFazenda")
         .WithOpenApi();
     }

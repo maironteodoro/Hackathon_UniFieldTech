@@ -9,6 +9,9 @@ using Twilio.Rest.Api.V2010.Account;
 using System.Net.Mail;
 using System.Net;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+
 namespace UnifieldTech.Endpoints;
 
 public static class ClienteEndpoints
@@ -21,8 +24,10 @@ public static class ClienteEndpoints
         {
             return await db.Cliente.ToListAsync();
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("GetAllClientes")
         .WithOpenApi();
+
         group.MapGet("/{id}", async Task<Results<Ok<Cliente>, NotFound>> (int clienteid, UnifieldTechContext db) =>
         {
             return await db.Cliente.AsNoTracking()
@@ -31,6 +36,7 @@ public static class ClienteEndpoints
                     ? TypedResults.Ok(model)
                     : TypedResults.NotFound();
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("GetClienteById")
         .WithOpenApi();
 
@@ -47,6 +53,7 @@ public static class ClienteEndpoints
 
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("UpdateCliente")
         .WithOpenApi();
 
@@ -117,6 +124,7 @@ public static class ClienteEndpoints
             //    await response.WriteAsync("Ocorreu um erro ao enviar o email: " + ex.Message);
             //}
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("CreateCliente")
         .WithOpenApi();
 
@@ -128,6 +136,7 @@ public static class ClienteEndpoints
 
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
         })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("DeleteCliente")
         .WithOpenApi();
     }
