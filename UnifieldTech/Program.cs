@@ -117,7 +117,6 @@ app.UseAuthentication(); // Adiciona o middleware de autenticação
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapCelularEndpoints();
 app.MapFazendaEndpoints();
 app.MapClienteEndpoints();
 

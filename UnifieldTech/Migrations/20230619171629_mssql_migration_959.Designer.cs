@@ -12,8 +12,8 @@ using UnifieldTech.Data;
 namespace UnifieldTech.Migrations
 {
     [DbContext(typeof(UnifieldTechContext))]
-    [Migration("20230618151416_mssql_migration_408")]
-    partial class mssql_migration_408
+    [Migration("20230619171629_mssql_migration_959")]
+    partial class mssql_migration_959
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,36 +223,6 @@ namespace UnifieldTech.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("UnifieldTech.Models.Celular", b =>
-                {
-                    b.Property<int>("CelularID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CelularID"));
-
-                    b.Property<string>("CelularN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ClienteID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CelularID");
-
-                    b.HasIndex("ClienteID");
-
-                    b.ToTable("Celular");
-
-                    b.HasData(
-                        new
-                        {
-                            CelularID = 1,
-                            CelularN = "35991529241",
-                            ClienteID = 1
-                        });
-                });
-
             modelBuilder.Entity("UnifieldTech.Models.Cliente", b =>
                 {
                     b.Property<int>("ClienteID")
@@ -262,6 +232,10 @@ namespace UnifieldTech.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClienteID"));
 
                     b.Property<string>("CPF")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CelularN")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Codigo")
@@ -292,6 +266,7 @@ namespace UnifieldTech.Migrations
                         {
                             ClienteID = 1,
                             CPF = "132.318.266.93",
+                            CelularN = "35991529241",
                             DataNacs = new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             E_Mail = "robert@gmail.com",
                             NomeCliente = "Robert",
@@ -422,17 +397,6 @@ namespace UnifieldTech.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UnifieldTech.Models.Celular", b =>
-                {
-                    b.HasOne("UnifieldTech.Models.Cliente", "cliente")
-                        .WithMany("celular")
-                        .HasForeignKey("ClienteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("cliente");
-                });
-
             modelBuilder.Entity("UnifieldTech.Models.Fazenda", b =>
                 {
                     b.HasOne("UnifieldTech.Models.Cliente", "cliente")
@@ -446,8 +410,6 @@ namespace UnifieldTech.Migrations
 
             modelBuilder.Entity("UnifieldTech.Models.Cliente", b =>
                 {
-                    b.Navigation("celular");
-
                     b.Navigation("fazenda");
                 });
 #pragma warning restore 612, 618

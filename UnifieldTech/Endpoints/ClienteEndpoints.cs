@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
 using UnifieldTech.Models;
-using Twilio.Types;
 using Twilio;
+using Twilio.Types;
 using Twilio.Rest.Api.V2010.Account;
 using System.Net.Mail;
 using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
 
 namespace UnifieldTech.Endpoints;
 
@@ -46,6 +47,8 @@ public static class ClienteEndpoints
                 .Where(model => model.ClienteID == clienteid)
                 .ExecuteUpdateAsync(setters => setters
                   .SetProperty(m => m.NomeCliente, cliente.NomeCliente)
+                  //.SetProperty(m => m.CPF, cliente.CPF)
+                  .SetProperty(m => m.CelularN, cliente.CelularN)
                   .SetProperty(m => m.E_Mail, cliente.E_Mail)
                   .SetProperty(m => m.DataNacs, cliente.DataNacs)
                   .SetProperty(m => m.Password, cliente.Password)
@@ -57,76 +60,47 @@ public static class ClienteEndpoints
         .WithName("UpdateCliente")
         .WithOpenApi();
 
-        
+
         group.MapPost("/", async (HttpRequest request, HttpResponse response, Cliente cliente, UnifieldTechContext db) =>
         {
-            // Validar o CPF antes de adicionar o cliente
-            if (!ValidaCPF.validaCPF(cliente.CPF))
-            {
-                // Verificar se o CPF não é válido
-                response.StatusCode = (int)HttpStatusCode.BadRequest;
-                await response.WriteAsync("CPF inválido");
-                return;
-            }
-            else if (db.Cliente.Any(c => c.CPF == cliente.CPF))
-            {
-                // Verificar se o CPF já está cadastrado no banco de dados
-                response.StatusCode = (int)HttpStatusCode.BadRequest;
-                await response.WriteAsync("CPF já cadastrado");
-                return;
-            }
+            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "a523aa1d55bbd1c16a6b70d2c8b07f57");
 
+            // Validar o CPF antes de adicionar o cliente
+            //if (!ValidaCPF.validaCPF(cliente.CPF))
+            //{
+            //    // Verificar se o CPF não é válido
+            //    response.StatusCode = (int)HttpStatusCode.BadRequest;
+            //    await response.WriteAsync("CPF inválido");
+            //    return;
+            //}
+            //else if (db.Cliente.Any(c => c.CPF == cliente.CPF))
+            //{
+            //    // Verificar se o CPF já está cadastrado no banco de dados
+            //    response.StatusCode = (int)HttpStatusCode.BadRequest;
+            //    await response.WriteAsync("CPF já cadastrado");
+            //    return;
+            //}
 
             cliente.Codigo = cliente.GerarStringAleatoria();
+
             db.Cliente.Add(cliente);
             await db.SaveChangesAsync();
-            response.StatusCode = (int)HttpStatusCode.Created;
-            await response.WriteAsync(JsonSerializer.Serialize(cliente));
-           
-            //return TypedResults.Created($"/api/Cliente/{cliente.ClienteID}", cliente);
-            // Lógica para enviar o email
-            //try
-            //{
-            //    // Configurações do servidor SMTP
-            //    string smtpHost = "smtp.gmail.com";
-            //    int smtpPort = 587;
-            //    string smtpUsername = "email@gmail.com";
-            //    string smtpPassword = "senha";
 
-            //    // Configurações do email
-            //    string fromEmail = "email@gmail.com";
-            //    string toEmail = cliente.E_Mail;
-            //    string subject = "Código de Verificação";
-            //    string body = "Seu código de verificação é: " + cliente.Codigo;
+            var messageOptions = new CreateMessageOptions(
+                new PhoneNumber($"whatsapp:+55{cliente.CelularN}"))
+            {
+                From = new PhoneNumber("whatsapp:+14155238886"),
+                Body = "Esse é seu código de validação: " + cliente.Codigo
+            };
 
-            //    // Cria uma instância do cliente SMTP
-            //    using (SmtpClient smtpClient = new SmtpClient(smtpHost, smtpPort))
-            //    {
-            //        smtpClient.EnableSsl = true;
-            //        smtpClient.UseDefaultCredentials = false;
-            //        smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
-
-            //        // Cria a mensagem de email
-            //        MailMessage emailMessage = new MailMessage(fromEmail, toEmail, subject, body);
-
-            //        // Envia o email
-            //        smtpClient.Send(emailMessage);
-
-            //        Console.WriteLine("Email enviado com sucesso.");
-            //    }
-
-            //    response.StatusCode = (int)HttpStatusCode.Created;
-            //    await response.WriteAsync(JsonSerializer.Serialize(cliente));
-            //}
-            //catch (Exception ex)
-            //{
-            //    response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //    await response.WriteAsync("Ocorreu um erro ao enviar o email: " + ex.Message);
-            //}
+            var message = MessageResource.Create(messageOptions);
+            return TypedResults.Created($"/api/cliente/{cliente.ClienteID}", cliente + message.Sid);
         })
         .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
         .WithName("CreateCliente")
         .WithOpenApi();
+
+
 
         group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int clienteid, UnifieldTechContext db) =>
         {

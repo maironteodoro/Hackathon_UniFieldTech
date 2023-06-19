@@ -18,22 +18,11 @@ namespace UnifieldTech.Data
 
         public DbSet<Cliente> Cliente { get; set; } = default!;
 
-        public DbSet<Celular> Celular { get; set; } = default!;
-
         public DbSet<Fazenda> Fazenda { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Celular>().HasData(
-                new Celular
-                {
-                    CelularID = 1,
-                    CelularN = "35991529241",
-                    ClienteID = 1
-                }
-            );
 
             modelBuilder.Entity<Cliente>().HasData(
                 new Cliente
@@ -41,6 +30,7 @@ namespace UnifieldTech.Data
                     ClienteID = 1,
                     NomeCliente = "Robert",
                     CPF = "132.318.266.93",
+                    CelularN = "35991529241",
                     E_Mail = "robert@gmail.com",
                     DataNacs = new DateTime(1997, 11, 11),
                     Password = "123"

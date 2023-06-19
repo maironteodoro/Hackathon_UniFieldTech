@@ -84,6 +84,10 @@ public class Cliente
     }
 
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
+    [RegularExpression(@"^\([1-9]{2}\) 9?[6-9][0-9]{3}\-[0-9]{4}$", ErrorMessage = "O campo CelularN deve estar no formato (99) 99999-9999")]
+    public string? CelularN { get; set; }
+
+    [Required(ErrorMessage = "Esse campo é obrigatorio")]
     public string? E_Mail { get; set; }
 
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
@@ -94,8 +98,6 @@ public class Cliente
     public string? Codigo { get; set; }
 
 	//Referencia para:
-	[JsonIgnore]
-	public ICollection<Celular>? celular { get; set; }
 	[JsonIgnore]
 	public ICollection<Fazenda>? fazenda { get; set; }
 
