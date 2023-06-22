@@ -34,33 +34,29 @@ public static class FazendaEndpoints
         .WithName("GetFazendaById")
         .WithOpenApi();
 
-        //group.MapGet("/buscar/cliente/{id}", async (int id, UnifieldTechContext db) =>
-        //{
-        //    var cliente = await db.Cliente.AsNoTracking()
-        //        .FirstOrDefaultAsync(model => model.ClienteID == id);
+        group.MapGet("/buscar/cliente/{id}", async (int id, UnifieldTechContext db) =>
+        {
+            var cliente = await db.Cliente.AsNoTracking()
+                .FirstOrDefaultAsync(model => model.ClienteID == id);
 
-        //    if (cliente != null)
-        //    {
-        //        return cliente;
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //})
-        //.RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
-        //.WithName("BuscarFazendaPorId")
-        //.WithOpenApi();
-
-
-
+            if (cliente != null)
+            {
+                return cliente;
+            }
+            else
+            {
+                return null;
+            }
+        })
+        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
+        .WithName("BuscarFazendaPorId")
+        .WithOpenApi();
 
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int fazendaid, Fazenda fazenda, UnifieldTechContext db) =>
         {
             var affected = await db.Fazenda
                 .Where(model => model.FazendaID == fazendaid)
                 .ExecuteUpdateAsync(setters => setters
-                  .SetProperty(m => m.FazendaID, fazenda.FazendaID)
                   .SetProperty(m => m.NomeFazenda, fazenda.NomeFazenda)
                   .SetProperty(m => m.Hectar, fazenda.Hectar)
                   .SetProperty(m => m.Cultivar, fazenda.Cultivar)

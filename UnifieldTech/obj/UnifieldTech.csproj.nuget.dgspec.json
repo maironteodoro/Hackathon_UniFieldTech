@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {}
+    "C:\\Users\\davib\\Desktop\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {}
   },
   "projects": {
-    "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {
+    "C:\\Users\\davib\\Desktop\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
+        "projectUniqueName": "C:\\Users\\davib\\Desktop\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
         "projectName": "UnifieldTech",
-        "projectPath": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
+        "projectPath": "C:\\Users\\davib\\Desktop\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
         "packagesPath": "C:\\Users\\davib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\davib\\OneDrive\\Área de Trabalho\\Hackathon_UniFieldTech\\UnifieldTech\\obj\\",
+        "outputPath": "C:\\Users\\davib\\Desktop\\Hackathon_UniFieldTech\\UnifieldTech\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

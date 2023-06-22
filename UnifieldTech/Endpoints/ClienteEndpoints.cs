@@ -63,7 +63,7 @@ public static class ClienteEndpoints
 
         group.MapPost("/", async (HttpRequest request, HttpResponse response, Cliente cliente, UnifieldTechContext db) =>
         {
-            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "a523aa1d55bbd1c16a6b70d2c8b07f57");
+
 
             // Validar o CPF antes de adicionar o cliente
             //if (!ValidaCPF.validaCPF(cliente.CPF))
@@ -80,7 +80,7 @@ public static class ClienteEndpoints
             //    await response.WriteAsync("CPF já cadastrado");
             //    return;
             //}
-
+            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "01133299064c4cbbdfca4b909c430e96");
             cliente.Codigo = cliente.GerarStringAleatoria();
 
             db.Cliente.Add(cliente);

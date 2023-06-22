@@ -95,6 +95,7 @@ public class Cliente
 
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
     public string? Password { get; set; }
+
     public string? Codigo { get; set; }
 
 	//Referencia para:
