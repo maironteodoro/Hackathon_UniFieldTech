@@ -1647,3 +1647,4 @@ C:\Users\davib\Desktop\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\refi
 C:\Users\davib\Desktop\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\UnifieldTech.pdb
 C:\Users\davib\Desktop\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\UnifieldTech.genruntimeconfig.cache
 C:\Users\davib\Desktop\Hackathon_UniFieldTech\UnifieldTech\obj\Debug\net7.0\ref\UnifieldTech.dll
+C:\Users\davib\Desktop\Hackathon_UniFieldTech\UnifieldTech\bin\Debug\net7.0\BCrypt.Net-Next.dll

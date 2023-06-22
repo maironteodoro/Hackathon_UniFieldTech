@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "7WAQUz4rAcvzZ4AMIGf3/WO4Bt+qhzNhfq9O6W2hM8RxK/dDp687pAqu4FZEVkJFrxcnPr+0wIWBoolgfKGK/w==",
+  "dgSpecHash": "oTpzK/iuDsERi0YCxQAHei503tYTt+F4DwFTWiWXm7ugq1IwLCnhesNAEH+DGbxF/fw6aGYuraTU2EfH8yUP6g==",
   "success": true,
   "projectFilePath": "C:\\Users\\davib\\Desktop\\Hackathon_UniFieldTech\\UnifieldTech\\UnifieldTech.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\davib\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\davib\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\davib\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\davib\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\davib\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\davib\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
