@@ -63,24 +63,28 @@ public static class ClienteEndpoints
 
         group.MapPost("/", async (HttpRequest request, HttpResponse response, Cliente cliente, UnifieldTechContext db) =>
         {
+            ValidCPFAttribute a = new ValidCPFAttribute();
+            Object t = null;
 
+            //Validar o CPF antes de adicionar o cliente
+            if (!a.IsValid(cliente.CPF))
+            {
+                // Verificar se o CPF não é válido
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                await response.WriteAsync("CPF inválido");
+                t = response;
+                return t;
+            }
+            else if (db.Cliente.Any(c => c.CPF == cliente.CPF))
+            {
+                // Verificar se o CPF já está cadastrado no banco de dados
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                await response.WriteAsync("CPF já cadastrado");
+                t = response;
+                return t;
+            }
+            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "7f24e5b31820f955f9d7dd68e800a02d");
 
-            // Validar o CPF antes de adicionar o cliente
-            //if (!ValidaCPF.validaCPF(cliente.CPF))
-            //{
-            //    // Verificar se o CPF não é válido
-            //    response.StatusCode = (int)HttpStatusCode.BadRequest;
-            //    await response.WriteAsync("CPF inválido");
-            //    return;
-            //}
-            //else if (db.Cliente.Any(c => c.CPF == cliente.CPF))
-            //{
-            //    // Verificar se o CPF já está cadastrado no banco de dados
-            //    response.StatusCode = (int)HttpStatusCode.BadRequest;
-            //    await response.WriteAsync("CPF já cadastrado");
-            //    return;
-            //}
-            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "01133299064c4cbbdfca4b909c430e96");
             cliente.Codigo = cliente.GerarStringAleatoria();
 
             db.Cliente.Add(cliente);
@@ -94,11 +98,15 @@ public static class ClienteEndpoints
             };
 
             var message = MessageResource.Create(messageOptions);
-            return TypedResults.Created($"/api/cliente/{cliente.ClienteID}", cliente + message.Sid);
+            if (t == null)
+            {
+                t = TypedResults.Created($"/api/cliente/{cliente.ClienteID}", cliente + message.Sid);
+            }
+            return t;
         })
-        .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
-        .WithName("CreateCliente")
-        .WithOpenApi();
+         .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
+         .WithName("CreateCliente")
+         .WithOpenApi();
 
 
 
