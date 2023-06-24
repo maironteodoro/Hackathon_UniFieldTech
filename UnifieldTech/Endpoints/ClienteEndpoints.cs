@@ -1,18 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.OpenApi;
 using UnifieldTech.Data;
 using UnifieldTech.Models;
-using Twilio;
-using Twilio.Types;
-using Twilio.Rest.Api.V2010.Account;
-using System.Net.Mail;
-using System.Net;
-using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using System.Text;
-using BCrypt.Net;
+
+using UnifieldTech.ViewModels;
+using System.Net;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace UnifieldTech.Endpoints
 {
@@ -60,31 +55,20 @@ namespace UnifieldTech.Endpoints
             .WithName("UpdateCliente")
             .WithOpenApi();
 
-
-            group.MapPost("/", async (HttpRequest request, HttpResponse response, Cliente cliente, UnifieldTechContext db) =>
+            group.MapPost("/", async (HttpResponse response, Cliente cliente, UnifieldTechContext db) =>
             {
-                ValidCPFAttribute a = new ValidCPFAttribute();
-                Object? t = null;
+                MessageWhatsApp mw = new MessageWhatsApp();
+                CpfConfig cp = new CpfConfig();
 
-                // Validar o CPF antes de adicionar o cliente
-                if (!a.IsValid(cliente.CPF))
+                HttpResponse cpfValidationResponse = await cp.ValidarCPFCliente(cliente.CPF, response, db);
+                Object c = cpfValidationResponse.StatusCode;
+                if (c.GetHashCode() != (int)HttpStatusCode.OK)
                 {
-                    // Verificar se o CPF não é válido
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    await response.WriteAsync("CPF inválido");
-                    t = response;
-                    return t;
+                    c = response.WriteAsJsonAsync(cpfValidationResponse.ToString());
+                    //c = response.WriteAsJsonAsync($"Usuário {db.Cliente} criado com sucesso");
+                    // Retornar a resposta de validação de CPF como resultado do endpoint
+                    return c; 
                 }
-                else if (db.Cliente.Any(c => c.CPF == cliente.CPF))
-                {
-                    // Verificar se o CPF já está cadastrado no banco de dados
-                    response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    await response.WriteAsync("CPF já cadastrado");
-                    t = response;
-                    return t;
-                }
-
-                TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "7f24e5b31820f955f9d7dd68e800a02d");
 
                 cliente.Codigo = cliente.GerarStringAleatoria();
                 cliente.Password = BCrypt.Net.BCrypt.HashPassword(cliente.Password);
@@ -92,21 +76,9 @@ namespace UnifieldTech.Endpoints
                 db.Cliente.Add(cliente);
                 await db.SaveChangesAsync();
 
-                var messageOptions = new CreateMessageOptions(
-                    new PhoneNumber($"whatsapp:+55{cliente.CelularN}"))
-                {
-                    From = new PhoneNumber("whatsapp:+14155238886"),
-                    Body = "Esse é seu código de validação: " + cliente.Codigo
-                };
+                //mw.EnviarCodigoValidacao(cliente.CelularN, cliente.Codigo);
 
-                var message = MessageResource.Create(messageOptions);
-
-                if (t == null)
-                {
-                    t = TypedResults.Created($"/api/cliente/{cliente.ClienteID}", cliente + message.Sid);
-                }
-
-                return t;
+                return TypedResults.Created($"/api/cliente/{cliente.ClienteID}", cliente);
             })
             .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
             .WithName("CreateCliente")
