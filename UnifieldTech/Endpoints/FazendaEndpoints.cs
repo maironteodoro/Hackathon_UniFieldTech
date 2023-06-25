@@ -34,26 +34,27 @@ public static class FazendaEndpoints
         .WithName("GetFazendaById")
         .WithOpenApi();
 
-        group.MapGet("/buscar/cliente/cpf/{id}", async (string cpf, UnifieldTechContext db) =>
+        group.MapGet("/buscar/cliente/cpf/{cpf}", async (string cpf, UnifieldTechContext db) =>
         {
             var cliente = await db.Cliente.AsNoTracking()
                 .FirstOrDefaultAsync(model => model.CPF == cpf);
 
             if (cliente != null)
             {
-                return cliente;
+                return cliente.ClienteID; // Retorna somente o ID do cliente
             }
             else
             {
-                return null;
+                return 0;
             }
         })
         .RequireAuthorization(new AuthorizeAttribute { AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme })
-        .WithName("BuscarFazendaPorCpf")
+        .WithName("BuscarClienteIdPorCpf")
         .WithOpenApi();
 
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int fazendaid, Fazenda fazenda, UnifieldTechContext db) =>
         {
+            Cliente c = new Cliente();
             var affected = await db.Fazenda
                 .Where(model => model.FazendaID == fazendaid)
                 .ExecuteUpdateAsync(setters => setters

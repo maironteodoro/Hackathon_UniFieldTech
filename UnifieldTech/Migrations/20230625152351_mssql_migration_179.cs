@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UnifieldTech.Migrations
 {
     /// <inheritdoc />
-    public partial class mssql_migration_959 : Migration
+    public partial class mssql_migration_179 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,7 +57,7 @@ namespace UnifieldTech.Migrations
                     ClienteID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NomeCliente = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CPF = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CelularN = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     E_Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataNacs = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -190,7 +190,7 @@ namespace UnifieldTech.Migrations
                     Estado = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TipoPlantio = table.Column<bool>(type: "bit", nullable: false),
+                    TipoPlantio = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AreaMecanizada = table.Column<bool>(type: "bit", nullable: false),
                     ClienteID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -204,16 +204,6 @@ namespace UnifieldTech.Migrations
                         principalColumn: "ClienteID",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Cliente",
-                columns: new[] { "ClienteID", "CPF", "CelularN", "Codigo", "DataNacs", "E_Mail", "NomeCliente", "Password" },
-                values: new object[] { 1, "132.318.266.93", "35991529241", null, new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "robert@gmail.com", "Robert", "123" });
-
-            migrationBuilder.InsertData(
-                table: "Fazenda",
-                columns: new[] { "FazendaID", "AreaMecanizada", "Cidade", "ClienteID", "Cultivar", "Estado", "Hectar", "Latitude", "Longitude", "NomeFazenda", "Num", "Rua", "TipoPlantio" },
-                values: new object[] { 1, true, "Alfenas", 1, "Café", "Minas Gerais", "18 He", "48", "45", "Caipira", "1458", "Primeira segunda", true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

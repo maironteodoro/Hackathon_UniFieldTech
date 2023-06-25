@@ -30,7 +30,7 @@ public class Fazenda
     public string? Longitude { get; set; }
 
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
-    public bool TipoPlantio { get; set; }
+    public string? TipoPlantio { get; set; }
 
     [Required(ErrorMessage = "Esse campo é obrigatorio")]
     public bool AreaMecanizada { get; set; }

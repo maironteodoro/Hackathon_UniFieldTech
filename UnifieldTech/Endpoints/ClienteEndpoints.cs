@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using UnifieldTech.ViewModels;
 using System.Net;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Net.Mail;
 
 namespace UnifieldTech.Endpoints
 {
@@ -57,6 +58,20 @@ namespace UnifieldTech.Endpoints
 
             group.MapPost("/", async (HttpResponse response, Cliente cliente, UnifieldTechContext db) =>
             {
+                // Validar a idade mínima
+                int idadeMinima = 18;
+                DateTime dataAtual = DateTime.Now;
+                int idade = dataAtual.Year - cliente.DataNacs.Year;
+                if (cliente.DataNacs > dataAtual.AddYears(-idade))
+                    idade--;
+
+                if (idade < idadeMinima)
+                {
+                    // Retornar uma resposta de erro informando a idade mínima requerida
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    await response.WriteAsJsonAsync($"Você deve ter no mínimo {idadeMinima} anos para realizar esta operação.");
+                }
+
                 MessageWhatsApp mw = new MessageWhatsApp();
                 CpfConfig cp = new CpfConfig();
 
@@ -65,18 +80,38 @@ namespace UnifieldTech.Endpoints
                 if (c.GetHashCode() != (int)HttpStatusCode.OK)
                 {
                     c = response.WriteAsJsonAsync(cpfValidationResponse.ToString());
-                    //c = response.WriteAsJsonAsync($"Usuário {db.Cliente} criado com sucesso");
-                    // Retornar a resposta de validação de CPF como resultado do endpoint
-                    return c; 
+                    return c;
                 }
 
+                string smtpHost = "smtp.gmail.com";
+                int smtpPort = 587;
+                string smtpUsername = "unifieldtechsolucoes@gmail.com";
+                string smtpPassword = "mnvkbygahorwpdhw";
+
+                // Criar cliente SMTP
+                SmtpClient smtpClient = new SmtpClient(smtpHost, smtpPort);
+                smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
+
+                // Habilitar conexão segura (SSL/TLS)
+                smtpClient.EnableSsl = true;
+
+                // Criar mensagem de e-mail
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress(smtpUsername); // Use o mesmo e-mail configurado em smtpUsername
+                mailMessage.To.Add(cliente.E_Mail);
+                mailMessage.Subject = "Token de Verificação";
+
                 cliente.Codigo = cliente.GerarStringAleatoria();
+                mailMessage.Body = "Esse é seu código de validação: " + cliente.Codigo;
                 cliente.Password = BCrypt.Net.BCrypt.HashPassword(cliente.Password);
 
                 db.Cliente.Add(cliente);
                 await db.SaveChangesAsync();
 
-                //mw.EnviarCodigoValidacao(cliente.CelularN, cliente.Codigo);
+                // Enviar e-mail
+                smtpClient.Send(mailMessage);
+
+                mw.EnviarCodigoValidacao(cliente.CelularN, cliente.Codigo);
 
                 return TypedResults.Created($"/api/cliente/{cliente.ClienteID}", cliente);
             })

@@ -12,8 +12,8 @@ using UnifieldTech.Data;
 namespace UnifieldTech.Migrations
 {
     [DbContext(typeof(UnifieldTechContext))]
-    [Migration("20230619171629_mssql_migration_959")]
-    partial class mssql_migration_959
+    [Migration("20230625152351_mssql_migration_179")]
+    partial class mssql_migration_179
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,6 +232,7 @@ namespace UnifieldTech.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClienteID"));
 
                     b.Property<string>("CPF")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CelularN")
@@ -260,18 +261,6 @@ namespace UnifieldTech.Migrations
                     b.HasKey("ClienteID");
 
                     b.ToTable("Cliente");
-
-                    b.HasData(
-                        new
-                        {
-                            ClienteID = 1,
-                            CPF = "132.318.266.93",
-                            CelularN = "35991529241",
-                            DataNacs = new DateTime(1997, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            E_Mail = "robert@gmail.com",
-                            NomeCliente = "Robert",
-                            Password = "123"
-                        });
                 });
 
             modelBuilder.Entity("UnifieldTech.Models.Fazenda", b =>
@@ -318,32 +307,15 @@ namespace UnifieldTech.Migrations
                     b.Property<string>("Rua")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TipoPlantio")
-                        .HasColumnType("bit");
+                    b.Property<string>("TipoPlantio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FazendaID");
 
                     b.HasIndex("ClienteID");
 
                     b.ToTable("Fazenda");
-
-                    b.HasData(
-                        new
-                        {
-                            FazendaID = 1,
-                            AreaMecanizada = true,
-                            Cidade = "Alfenas",
-                            ClienteID = 1,
-                            Cultivar = "Café",
-                            Estado = "Minas Gerais",
-                            Hectar = "18 He",
-                            Latitude = "48",
-                            Longitude = "45",
-                            NomeFazenda = "Caipira",
-                            Num = "1458",
-                            Rua = "Primeira segunda",
-                            TipoPlantio = true
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
