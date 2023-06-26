@@ -9,8 +9,8 @@ namespace UnifieldTech.ViewModels
         {
             string smtpHost = "smtp.gmail.com";
             int smtpPort = 587;
-            string smtpUsername = "";
-            string smtpPassword = "";
+            string smtpUsername = "unifieldtechsolucoes@gmail.com";
+            string smtpPassword = "mnvkbygahorwpdhw";
 
             using (SmtpClient smtpClient = new SmtpClient(smtpHost, smtpPort))
             {
