@@ -9,7 +9,7 @@ namespace UnifieldTech.ViewModels
         public void EnviarCodigoValidacao(string celular, string codigo)
         {
             // Inicializar a configuração do Twilio
-            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "5f19ba082456fcb19eea76a152a67e6c");
+            TwilioClient.Init("AC2c556c8c4bbc592728c527807458b033", "");
 
             // Enviar mensagem pelo Twilio
             var messageOptions = new CreateMessageOptions(
